@@ -23,7 +23,16 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Midair Movement")]
 	[SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
+	[Header("Camera")]
+	[SerializeField] private Camera cam;
+
 	[SerializeField] private Transform orientation;
+
+	[Header("Interactables")]
+	[SerializeField] private LayerMask interactableLayer;
+	[SerializeField] private KeyCode focusKey = KeyCode.RightShift;
+	private GameObject focusedObject;
+	private ManipulableGravity focusedGravityController;
 
 	private float xInput, yInput;
 
@@ -55,7 +64,27 @@ public class PlayerMovement : MonoBehaviour
 		else {
 			rb.drag = 0f;
 		}
-    }
+
+		// Check for interactable objects
+		Ray reticleRay = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+		RaycastHit reticleHit;
+		Physics.Raycast(reticleRay, out reticleHit, 50f, interactableLayer);
+
+		Collider hitObject = reticleHit.collider;
+
+		if (hitObject) {
+			if (!focusedObject) {
+				focusedObject = hitObject.gameObject;
+				focusedGravityController = focusedObject.GetComponent<ManipulableGravity>();
+			}
+		}
+		else {
+			if (focusedObject) {
+				focusedObject = null;
+				focusedGravityController = null;
+			}
+		}
+	}
 
 	private void FixedUpdate() {
 		MovePlayer();
@@ -73,6 +102,10 @@ public class PlayerMovement : MonoBehaviour
 
 			// delay execution of function
 			Invoke(nameof(ResetJump), jumpCooldown);
+		}
+
+		if (Input.GetKey(focusKey) && focusedGravityController) {
+			focusedGravityController.FlipGravity();
 		}
 	}
 
