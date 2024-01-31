@@ -24,12 +24,20 @@ public class ManipulableGravity : MonoBehaviour
 		}
 	}
 
+	[Header("Materials")]
+	[SerializeField] private Material defaultMat;
+	[SerializeField] private Material focusedMat;
+	private MeshRenderer myMeshRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
 		transform = GetComponent<Transform>();
 		col = GetComponent<BoxCollider>();
 		CurrentGravityDirection = Vector3.down;
+
+		myMeshRenderer = GetComponent<MeshRenderer>();
+		myMeshRenderer.material = defaultMat;
     }
 
     // Update is called once per frame
@@ -68,6 +76,10 @@ public class ManipulableGravity : MonoBehaviour
 			Vector3 vel1 = vel0 + (CurrentGravityDirection * acclerationDueToGravity * Time.deltaTime);
 			accumulatedVelocity = vel1;
 		}
+	}
+
+	public void SetFocus(bool focused) {
+		myMeshRenderer.material = focused ? focusedMat : defaultMat;
 	}
 
 	public void FlipGravity() {

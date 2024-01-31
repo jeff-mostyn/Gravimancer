@@ -76,10 +76,12 @@ public class PlayerMovement : MonoBehaviour
 			if (!focusedObject) {
 				focusedObject = hitObject.gameObject;
 				focusedGravityController = focusedObject.GetComponent<ManipulableGravity>();
+				focusedGravityController.SetFocus(true);
 			}
 		}
 		else {
 			if (focusedObject) {
+				focusedGravityController.SetFocus(false);
 				focusedObject = null;
 				focusedGravityController = null;
 			}

@@ -349,7 +349,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1299335328
 MonoBehaviour:
@@ -370,6 +370,8 @@ MonoBehaviour:
     m_Bits: 64
   acclerationDueToGravity: 9.81
   terminalVelocity: 53
+  defaultMat: {fileID: 2100000, guid: c181c23a6120fbe4aadd5bb53a58dd78, type: 2}
+  focusedMat: {fileID: 2100000, guid: 4b905f60df09c8245b6e0d5af2e04c7f, type: 2}
 --- !u!4 &1360719736 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2829173727343694674, guid: 01632cbad0cce7d46baa5079b606723a, type: 3}
