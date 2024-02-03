@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="false"
-     inkscape:zoom="14.638496"
-     inkscape:cx="53.967293"
-     inkscape:cy="16.258501"
+     inkscape:zoom="29.276992"
+     inkscape:cx="39.928965"
+     inkscape:cy="20.562222"
      inkscape:window-width="2496"
      inkscape:window-height="1417"
      inkscape:window-x="56"
@@ -38,32 +38,38 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     inkscape:export-filename="layer1.png"
+     inkscape:export-xdpi="208.53999"
+     inkscape:export-ydpi="208.53999">
     <path
-       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.529167;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.26458333;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
        d="M 6.3499999,2.7170276 V 0"
        id="path2055"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.529167;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.26458333;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
        d="M -0.03322176,6.3499999 H 2.6838058"
        id="path2372"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.529167;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.26458333;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
        d="M 9.9829721,6.3499999 H 12.7"
        id="path2374"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.529167;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.26458333;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
        d="M 6.3499999,12.7 V 9.9829721"
        id="path2376"
        sodipodi:nodetypes="cc" />
     <path
        id="circle3418"
-       style="fill:none;stroke:#ffffff;stroke-width:0.529167;stroke-linecap:round;stroke-miterlimit:10;paint-order:fill markers stroke"
+       style="fill:none;stroke:#ffffff;stroke-width:0.26458333;stroke-linecap:butt;stroke-miterlimit:10;paint-order:fill markers stroke;stroke-dasharray:none"
        d="M 7.7882141,9.6871795 C 7.3471609,9.8775143 6.8608959,9.9829721 6.3499999,9.9829721 c -0.5768017,0 -1.1222077,-0.1344209 -1.6066008,-0.3736454 M 2.9254562,7.565805 C 2.7904927,7.1856729 2.7170277,6.7764158 2.7170277,6.3499999 c 0,-0.4462785 0.080468,-0.8737625 0.2276876,-1.2687344 m 1.848941,-2.014932 c 0.471736,-0.2239833 0.9994045,-0.3493058 1.5563436,-0.3493058 0.5235756,0 1.0212825,0.1107573 1.4709691,0.3101205 m 1.9001841,1.9660846 c 0.1688693,0.4191928 0.261819,0.8771252 0.261819,1.3567671 0,0.4923216 -0.097929,0.9617706 -0.2753704,1.3899303"
-       sodipodi:nodetypes="csccsccsccsc" />
+       sodipodi:nodetypes="csccsccsccsc"
+       inkscape:export-filename="..\..\..\..\..\..\reticle.png"
+       inkscape:export-xdpi="208.53999"
+       inkscape:export-ydpi="208.53999" />
     <circle
        style="display:none;fill:none;stroke:#ffffff;stroke-width:0.529167;stroke-linecap:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
        id="circle4881"

@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float lateralMoveSpeed;
 	[SerializeField] private float speedMultiplier;
 	[SerializeField] private float groundDrag;
+	[SerializeField] private float inputDeadzone;
 
 	[Header("Ground Check")]
 	[SerializeField] private float playerHeight;
@@ -30,7 +31,9 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("Interactables")]
 	[SerializeField] private LayerMask interactableLayer;
-	[SerializeField] private KeyCode focusKey = KeyCode.RightShift;
+	[SerializeField] private KeyCode focusKey = KeyCode.F;
+	[SerializeField] private KeyCode gravityFlipKey = KeyCode.LeftShift;
+	private bool focusMode;
 	private GameObject focusedObject;
 	private ManipulableGravity focusedGravityController;
 
@@ -45,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
     {
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
+
+		focusMode = false;
 
 		ResetJump();
     }
@@ -89,12 +94,18 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	private void FixedUpdate() {
-		MovePlayer();
+		if (!focusMode) {
+			MovePlayer();
+		}
 	}
 
 	private void MyInput() {
 		xInput = Input.GetAxisRaw("Horizontal");
 		yInput = Input.GetAxisRaw("Vertical");
+
+		if ((Mathf.Abs(xInput) > inputDeadzone || Mathf.Abs(yInput) > inputDeadzone) && focusedGravityController && focusMode) {
+			focusedGravityController.ChangeGravityDirection(xInput, yInput);
+		}
 
 		// jumping
 		if (Input.GetKey(jumpKey) && canJump && grounded) {
@@ -106,9 +117,19 @@ public class PlayerMovement : MonoBehaviour
 			Invoke(nameof(ResetJump), jumpCooldown);
 		}
 
-		if (Input.GetKey(focusKey) && focusedGravityController) {
-			focusedGravityController.FlipGravity();
+		if (Input.GetKeyDown(focusKey)) {
+			Debug.Log("slowing timescale");
+			TimeScaleManager.Instance.ChangeTimescale(true);
+			focusMode = true;
 		}
+		else if (Input.GetKeyUp(focusKey)) {
+			TimeScaleManager.Instance.ChangeTimescale(false);
+			focusMode = false;
+		}
+
+		//if (Input.GetKeyDown(gravityFlipKey) && focusedGravityController) {
+		//	focusedGravityController.FlipGravity();
+		//}
 	}
 
 	private void MovePlayer() {
