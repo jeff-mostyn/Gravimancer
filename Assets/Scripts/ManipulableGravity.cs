@@ -29,6 +29,9 @@ public class ManipulableGravity : MonoBehaviour
 	[SerializeField] private Material focusedMat;
 	private MeshRenderer myMeshRenderer;
 
+	[Header("Visualization")]
+	[SerializeField] private Transform indicator;
+
 	private void Awake() {
 		defaultGrav.x = 0f;
 		defaultGrav.y = -1f;
@@ -55,7 +58,7 @@ public class ManipulableGravity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Debug.DrawRay(transform.position, pendingRotation * defaultGrav, Color.red);
+		indicator.up = pendingRotation * (defaultGrav * -1);
     }
 
 	private void FixedUpdate() {
@@ -92,6 +95,11 @@ public class ManipulableGravity : MonoBehaviour
 
 	public void SetFocus(bool focused) {
 		myMeshRenderer.material = focused ? focusedMat : defaultMat;
+		indicator.gameObject.SetActive(focused);
+
+		if (!focused) {
+			Unfocus();
+		}
 	}
 
 	public void ChangeGravityDirection(float x, float y, PlayerMovement player) {
@@ -121,9 +129,11 @@ public class ManipulableGravity : MonoBehaviour
 
 	}
 
+
 	public void Unfocus() {
 		CancelInvoke(nameof(ContinueGravity));
 		ContinueGravity();
+		indicator.gameObject.SetActive(false);
 	}
 
 	private void ResetGravityDirectionChange() {

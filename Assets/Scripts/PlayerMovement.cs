@@ -122,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
 			Debug.Log("slowing timescale");
 			TimeScaleManager.Instance.ChangeTimescale(true);
 			focusMode = true;
+			if (focusedGravityController) focusedGravityController.SetFocus(true);
 		}
 		else if (Input.GetMouseButtonUp(0)) {
 			TimeScaleManager.Instance.ChangeTimescale(false);
