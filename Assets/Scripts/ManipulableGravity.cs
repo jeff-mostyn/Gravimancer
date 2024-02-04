@@ -15,6 +15,9 @@ public class ManipulableGravity : MonoBehaviour
 	private Vector3 accumulatedVelocity;
 
 	[SerializeField] private float rotationCooldown;
+	[SerializeField] private float gravityChangeDelay;
+	private bool gravityChangePending;
+	private Mat3 pendingRotation;
 	private Mat3 gravityRotation;
 
 
@@ -45,12 +48,14 @@ public class ManipulableGravity : MonoBehaviour
 
 		gravityRotation = new Mat3();
 		gravityRotation = Mat3.Rotate(new vec3(0f, 0f, 0f));
+
+		pendingRotation = gravityRotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-		Debug.DrawRay(transform.position, GetGravity(), Color.red);
+		Debug.DrawRay(transform.position, pendingRotation * defaultGrav, Color.red);
     }
 
 	private void FixedUpdate() {
@@ -89,25 +94,40 @@ public class ManipulableGravity : MonoBehaviour
 		myMeshRenderer.material = focused ? focusedMat : defaultMat;
 	}
 
-	public void ChangeGravityDirection(float x, float y) {
+	public void ChangeGravityDirection(float x, float y, PlayerMovement player) {
+		Vector3 currentGravity = GetGravity();
+		Vector3 positionOffset = transform.position - player.transform.position;
 		if (canChangeDirection) {
 			if (Mathf.Abs(y) > Mathf.Abs(x)) {
-				gravityRotation = Mat3.RotateZ(y > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad) * gravityRotation;
+				if (positionOffset.z > positionOffset.x) {
+					pendingRotation = Mat3.RotateX(y > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad) * pendingRotation;
+				} 
+				else {
+					pendingRotation = Mat3.RotateZ(y > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad) * pendingRotation;
+				}
 			}
 			else {
-				gravityRotation = Mat3.RotateY(x > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad) * gravityRotation;
+				pendingRotation = Mat3.RotateY(x > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad) * pendingRotation;
 			}
 
-			vec3 currentGravity = gravityRotation * defaultGrav;
-
 			canChangeDirection = false;
+			gravityChangePending = true;
+			CancelInvoke(nameof(ContinueGravity));
+
 			// delay execution of function
 			Invoke(nameof(ResetGravityDirectionChange), rotationCooldown);
+			Invoke(nameof(ContinueGravity), gravityChangeDelay);
 		}
+
 	}
 
 	private void ResetGravityDirectionChange() {
 		canChangeDirection = true;
+	}
+
+	private void ContinueGravity() {
+		gravityChangePending = false;
+		gravityRotation = pendingRotation;
 	}
 
 	public vec3 GetGravity() {

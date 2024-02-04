@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("Interactables")]
 	[SerializeField] private LayerMask interactableLayer;
-	[SerializeField] private KeyCode focusKey = KeyCode.F;
+	[SerializeField] private MouseButton focusKey = MouseButton.Left;
 	[SerializeField] private KeyCode gravityFlipKey = KeyCode.LeftShift;
 	private bool focusMode;
 	private GameObject focusedObject;
@@ -104,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 		yInput = Input.GetAxisRaw("Vertical");
 
 		if ((Mathf.Abs(xInput) > inputDeadzone || Mathf.Abs(yInput) > inputDeadzone) && focusedGravityController && focusMode) {
-			focusedGravityController.ChangeGravityDirection(xInput, yInput);
+			focusedGravityController.ChangeGravityDirection(xInput, yInput, this);
 		}
 
 		// jumping
@@ -117,19 +118,15 @@ public class PlayerMovement : MonoBehaviour
 			Invoke(nameof(ResetJump), jumpCooldown);
 		}
 
-		if (Input.GetKeyDown(focusKey)) {
+		if (Input.GetMouseButtonDown(0)) {
 			Debug.Log("slowing timescale");
 			TimeScaleManager.Instance.ChangeTimescale(true);
 			focusMode = true;
 		}
-		else if (Input.GetKeyUp(focusKey)) {
+		else if (Input.GetMouseButtonUp(0)) {
 			TimeScaleManager.Instance.ChangeTimescale(false);
 			focusMode = false;
 		}
-
-		//if (Input.GetKeyDown(gravityFlipKey) && focusedGravityController) {
-		//	focusedGravityController.FlipGravity();
-		//}
 	}
 
 	private void MovePlayer() {

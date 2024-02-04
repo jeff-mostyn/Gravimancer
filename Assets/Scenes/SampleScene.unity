@@ -859,6 +859,7 @@ MonoBehaviour:
   acclerationDueToGravity: 9.81
   terminalVelocity: 53
   rotationCooldown: 0.5
+  gravityChangeDelay: 1
   defaultMat: {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   focusedMat: {fileID: 2100000, guid: 4b905f60df09c8245b6e0d5af2e04c7f, type: 2}
 --- !u!1 &1348547212
