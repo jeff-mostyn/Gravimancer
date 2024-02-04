@@ -121,6 +121,11 @@ public class ManipulableGravity : MonoBehaviour
 
 	}
 
+	public void Unfocus() {
+		CancelInvoke(nameof(ContinueGravity));
+		ContinueGravity();
+	}
+
 	private void ResetGravityDirectionChange() {
 		canChangeDirection = true;
 	}
@@ -130,7 +135,7 @@ public class ManipulableGravity : MonoBehaviour
 		gravityRotation = pendingRotation;
 	}
 
-	public vec3 GetGravity() {
+	private vec3 GetGravity() {
 		vec3 grav = gravityRotation * defaultGrav;
 
 		return grav;

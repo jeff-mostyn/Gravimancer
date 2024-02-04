@@ -126,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
 		else if (Input.GetMouseButtonUp(0)) {
 			TimeScaleManager.Instance.ChangeTimescale(false);
 			focusMode = false;
+			if (focusedGravityController) focusedGravityController.Unfocus();
 		}
 	}
 
