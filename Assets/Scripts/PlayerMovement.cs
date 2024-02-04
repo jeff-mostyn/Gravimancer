@@ -32,8 +32,8 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("Interactables")]
 	[SerializeField] private LayerMask interactableLayer;
-	[SerializeField] private MouseButton focusKey = MouseButton.Left;
 	[SerializeField] private KeyCode gravityFlipKey = KeyCode.LeftShift;
+	[SerializeField] private float gravityFreezeDuration;
 	private bool focusMode;
 	private GameObject focusedObject;
 	private ManipulableGravity focusedGravityController;
@@ -119,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		if (Input.GetMouseButtonDown(0)) {
-			Debug.Log("slowing timescale");
 			TimeScaleManager.Instance.ChangeTimescale(true);
 			focusMode = true;
 			if (focusedGravityController) focusedGravityController.SetFocus(true);
@@ -128,6 +127,10 @@ public class PlayerMovement : MonoBehaviour
 			TimeScaleManager.Instance.ChangeTimescale(false);
 			focusMode = false;
 			if (focusedGravityController) focusedGravityController.Unfocus();
+		}
+
+		if (Input.GetMouseButtonDown(1) && focusedGravityController && !focusedGravityController.GetIsFrozen()) {
+			focusedGravityController.ToggleFrozen(gravityFreezeDuration);
 		}
 	}
 

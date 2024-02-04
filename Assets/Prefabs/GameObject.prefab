@@ -441,6 +441,7 @@ MonoBehaviour:
   lateralMoveSpeed: 7
   speedMultiplier: 10
   groundDrag: 5
+  inputDeadzone: 0
   playerHeight: 2
   groundLayer:
     serializedVersion: 2
@@ -455,4 +456,5 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 128
-  focusKey: 303
+  gravityFlipKey: 304
+  gravityFreezeDuration: 10

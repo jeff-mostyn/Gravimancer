@@ -20,9 +20,9 @@ public class ManipulableGravity : MonoBehaviour
 	private Mat3 pendingRotation;
 	private Mat3 gravityRotation;
 
-
 	vec3 defaultGrav;
 	private bool canChangeDirection;
+	private bool isFrozen;
 
 	[Header("Materials")]
 	[SerializeField] private Material defaultMat;
@@ -48,6 +48,7 @@ public class ManipulableGravity : MonoBehaviour
 		myMeshRenderer.material = defaultMat;
 
 		canChangeDirection = true;
+		isFrozen = false;
 
 		gravityRotation = new Mat3();
 		gravityRotation = Mat3.Rotate(new vec3(0f, 0f, 0f));
@@ -62,7 +63,9 @@ public class ManipulableGravity : MonoBehaviour
     }
 
 	private void FixedUpdate() {
-		PhysicsSolver();
+		if (!isFrozen) {
+			PhysicsSolver();
+		}
 	}
 
 	private void OnCollisionEnter(Collision collision) {
@@ -129,11 +132,29 @@ public class ManipulableGravity : MonoBehaviour
 
 	}
 
-
 	public void Unfocus() {
 		CancelInvoke(nameof(ContinueGravity));
 		ContinueGravity();
 		indicator.gameObject.SetActive(false);
+	}
+
+	public void ToggleFrozen(float freezeTime = 0) {
+		if (!isFrozen) {
+			Debug.Log("freezing object");
+			isFrozen = true;
+			Invoke(nameof(Unfreeze), freezeTime);
+		}
+		else {
+			isFrozen = false;
+		}
+	}
+
+	public bool GetIsFrozen() {
+		return isFrozen;
+	}
+
+	private void Unfreeze() {
+		ToggleFrozen();
 	}
 
 	private void ResetGravityDirectionChange() {
