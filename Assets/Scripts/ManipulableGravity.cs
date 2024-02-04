@@ -50,7 +50,7 @@ public class ManipulableGravity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		
+		Debug.DrawRay(transform.position, GetGravity(), Color.red);
     }
 
 	private void FixedUpdate() {
@@ -92,10 +92,10 @@ public class ManipulableGravity : MonoBehaviour
 	public void ChangeGravityDirection(float x, float y) {
 		if (canChangeDirection) {
 			if (Mathf.Abs(y) > Mathf.Abs(x)) {
-				gravityRotation *= Mat3.RotateZ(y > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad);
+				gravityRotation = Mat3.RotateZ(y > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad) * gravityRotation;
 			}
 			else {
-				gravityRotation *= Mat3.RotateY(x > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad);
+				gravityRotation = Mat3.RotateY(x > 0 ? 90f * Mathf.Deg2Rad : -90f * Mathf.Deg2Rad) * gravityRotation;
 			}
 
 			vec3 currentGravity = gravityRotation * defaultGrav;
