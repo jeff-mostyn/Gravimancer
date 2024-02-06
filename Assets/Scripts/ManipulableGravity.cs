@@ -6,6 +6,7 @@ public class ManipulableGravity : MonoBehaviour
 {
 	private BoxCollider col;
 	private Transform transform;
+	private Rigidbody rb;
 	[SerializeField] private float bodyHeight;
 	[SerializeField] private float raycastLeeway;
 	[SerializeField] private LayerMask stoppingSurface;
@@ -43,6 +44,7 @@ public class ManipulableGravity : MonoBehaviour
     {
 		transform = GetComponent<Transform>();
 		col = GetComponent<BoxCollider>();
+		rb = GetComponent<Rigidbody>();
 
 		myMeshRenderer = GetComponent<MeshRenderer>();
 		myMeshRenderer.material = defaultMat;
@@ -140,7 +142,6 @@ public class ManipulableGravity : MonoBehaviour
 
 	public void ToggleFrozen(float freezeTime = 0) {
 		if (!isFrozen) {
-			Debug.Log("freezing object");
 			isFrozen = true;
 			Invoke(nameof(Unfreeze), freezeTime);
 		}

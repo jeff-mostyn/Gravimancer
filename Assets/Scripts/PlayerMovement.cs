@@ -44,11 +44,19 @@ public class PlayerMovement : MonoBehaviour
 
 	private Rigidbody rb;
 
+	[Header("FX")]
+	[SerializeField] private AudioClip slowdown;
+	[SerializeField] private AudioClip speedup;
+	private AudioSource src;
+	[SerializeField] private GameObject victoryDisplay;
+
     // Start is called before the first frame update
     void Start()
     {
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
+
+		src = GetComponent<AudioSource>();
 
 		focusMode = false;
 
@@ -120,17 +128,25 @@ public class PlayerMovement : MonoBehaviour
 
 		if (Input.GetMouseButtonDown(0)) {
 			TimeScaleManager.Instance.ChangeTimescale(true);
+			src.PlayOneShot(slowdown);
 			focusMode = true;
 			if (focusedGravityController) focusedGravityController.SetFocus(true);
 		}
 		else if (Input.GetMouseButtonUp(0)) {
 			TimeScaleManager.Instance.ChangeTimescale(false);
+			src.PlayOneShot(speedup);
 			focusMode = false;
 			if (focusedGravityController) focusedGravityController.Unfocus();
 		}
 
 		if (Input.GetMouseButtonDown(1) && focusedGravityController && !focusedGravityController.GetIsFrozen()) {
 			focusedGravityController.ToggleFrozen(gravityFreezeDuration);
+		}
+	}
+
+	private void OnTriggerEnter(Collider other) {
+		if (other.gameObject.layer == LayerMask.NameToLayer("victoryCollider")) {
+			victoryDisplay.SetActive(true);
 		}
 	}
 
